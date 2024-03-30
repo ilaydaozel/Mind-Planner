@@ -2,27 +2,20 @@
 
 import React, { useEffect, useState } from 'react';
 import ProgramList from './ProgramList';
-import { fetchPrograms } from '@/app/api/program/fetchProgram/fetchProgram';
+import { fetchPrograms } from '@/app/api/program/fetchProgram/route';
+import AddProgramForm from '@/app/components/forms/AddProgramForm';
+import Button from '@/app/components/buttons/Button';
 
-const ProgramListPage = () => {
-  const [programs, setPrograms] = useState<IProgram[]>([]);
+const ProgramListPage = ({programs}:{programs: IProgram[]}) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  useEffect(() => {
-    // Fetch programs from the database
-    const fetchData = async () => {
-      try {
-        const programsData = await fetchPrograms(); // Call fetchPrograms function
-        setPrograms(programsData);
-      } catch (error) {
-        console.error('Error fetching programs:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
   
   return (
     <div>
+      <Button onClick={openModal} label='Add Program'></Button>
+      <AddProgramForm isOpen={isModalOpen} onClose={closeModal} />
       <ProgramList programs={programs} />
     </div>
   );

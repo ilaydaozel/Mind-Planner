@@ -1,9 +1,11 @@
+import { fetchPrograms } from '@/app/api/program/fetchProgram/route';
 import ProgramListPage from './ProgramListPage';
 
-const ProgramsPage = () => {
+const ProgramsPage = async () => {
+const programsData = await fetchPrograms();
   return (
     <div>
-      <ProgramListPage></ProgramListPage>
+      <ProgramListPage programs={programsData}></ProgramListPage>
     </div>
   );
 };
