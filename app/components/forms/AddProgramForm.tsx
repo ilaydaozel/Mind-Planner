@@ -7,7 +7,7 @@ import { handleApiResponse } from '@/app/utils/Helper';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 
-Modal.setAppElement('#root');
+Modal.setAppElement('#programsPage');
 
 interface AddProgramFormProps {
   isOpen: boolean;
