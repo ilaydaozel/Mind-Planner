@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Th, Td} from '@/app/components/table/TableElements';
+import { Th, Td, ProgramTableRow} from '@/app/components/table/TableElements';
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/16/solid";
 
 const ProgramsTable = ({ programs }: {programs: IProgram[]}) => {
@@ -27,25 +27,12 @@ const ProgramsTable = ({ programs }: {programs: IProgram[]}) => {
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
           {programs.map(program => (
-            <tr key={program.id}>
-                <div className='w-full flex'>
-                <Td>{program.name}</Td>
-                <Td>{program.universityName}</Td>
-                <Td>{program.universityCity}</Td>
-                <Td>{program.programLink}</Td>
-                <Td>{program.courseContent}</Td>
-                <Td>{program.requirements}</Td>
-                <Td>{program.language}</Td>
-                <Td>{program.applicationDeadline}</Td>
-                <Td>{program.applicationDocuments}</Td>
-                </div>
-                <button onClick={() => toggleAdditionalNotes(program.id || "")} className="text-primary-500 cursor-pointer flex items-center space-x-1">
-                  {showNotesForProgram === program.id ? <ChevronUpIcon className="h-4 w-4"/> : <ChevronDownIcon className="h-4 w-4" />}
-                </button>
-                {showNotesForProgram === program.id && (
-                <Td>{program.additionalNotes}</Td>
-                )}
-            </tr>
+             <ProgramTableRow 
+             key={program.id} 
+             program={program} 
+             showNotesForProgram={showNotesForProgram} 
+             toggleAdditionalNotes={toggleAdditionalNotes} 
+         />
           ))}
         </tbody>
       </table>
