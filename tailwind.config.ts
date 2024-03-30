@@ -18,10 +18,9 @@ const config: Config = {
     colors: {
       ...colors,
       primary: colors.purple,
-      secondary: colors.pink,
+      secondary: colors.lightBlue,
       bg: colors.pink,
       text1: colors.gray,
-
     },
   },
   plugins: [],

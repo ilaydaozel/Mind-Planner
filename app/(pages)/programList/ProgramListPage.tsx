@@ -1,8 +1,7 @@
 'use client'
 
-import React, { useEffect, useState } from 'react';
-import ProgramList from './ProgramList';
-import { fetchPrograms } from '@/app/api/program/fetchProgram/route';
+import React, { useState } from 'react';
+import ProgramsTable from '../../components/table/ProgramsTable';
 import AddProgramForm from '@/app/components/forms/AddProgramForm';
 import Button from '@/app/components/buttons/Button';
 
@@ -16,7 +15,7 @@ const ProgramListPage = ({programs}:{programs: IProgram[]}) => {
     <div>
       <Button onClick={openModal} label='Add Program'></Button>
       <AddProgramForm isOpen={isModalOpen} onClose={closeModal} />
-      <ProgramList programs={programs} />
+      <ProgramsTable programs={programs} />
     </div>
   );
 };

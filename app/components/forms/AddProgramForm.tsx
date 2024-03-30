@@ -7,7 +7,7 @@ import { handleApiResponse } from '@/app/utils/Helper';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 
-Modal.setAppElement('#programsPage');
+Modal.setAppElement('#root');
 
 interface AddProgramFormProps {
   isOpen: boolean;
@@ -25,7 +25,7 @@ const AddProgramForm = ({ isOpen, onClose }: AddProgramFormProps) => {
     language: '',
     applicationDeadline: '',
     applicationDocuments: '',
-    additionalNotes: [],
+    additionalNotes: '',
   });
   const router = useRouter();
 
@@ -36,6 +36,7 @@ const AddProgramForm = ({ isOpen, onClose }: AddProgramFormProps) => {
       [name]: value,
     }));
   };
+
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

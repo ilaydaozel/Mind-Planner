@@ -35,7 +35,7 @@ export async function POST(request: Request) {
 
     }catch (error) {
         console.error("Error adding the program:", error);
-        return NextResponse.json({ error: "An error occurred while adding the program." });
+        return NextResponse.json({ error: "An error occurred while adding the program: " + error });
     }
 
 

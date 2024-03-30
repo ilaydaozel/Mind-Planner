@@ -10,7 +10,7 @@ interface IProgram {
   language: string | null;
   applicationDeadline: string | null;
   applicationDocuments: string | null;
-  additionalNotes: string[];
+  additionalNotes: string | null;
 }
 
 interface INavLink {

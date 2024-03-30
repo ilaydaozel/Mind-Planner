@@ -25,5 +25,5 @@ model Program {
   language             String?
   applicationDeadline  String?
   applicationDocuments String?
-  additionalNotes      String[]
+  additionalNotes      String?
 }
