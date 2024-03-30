@@ -1,5 +1,5 @@
 
-export interface IProgram {
+interface IProgram {
   id?: string;
   name: string;
   universityName: string;
@@ -11,4 +11,9 @@ export interface IProgram {
   applicationDeadline?: string | null;
   applicationDocuments?: string | null;
   additionalNotes?: string[];
+}
+
+interface INavLink {
+  title: string;
+  path: string;
 }

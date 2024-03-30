@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useEffect, useState } from 'react';
-import { IProgram } from '@/types';
 import ProgramList from './ProgramList';
 import { fetchPrograms } from '@/app/api/program/fetchProgram/fetchProgram';
 

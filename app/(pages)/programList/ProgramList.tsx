@@ -1,4 +1,3 @@
-import { IProgram } from '@/types';
 import React from 'react';
 
 const ProgramList = ({ programs }: {programs: IProgram[]}) => {
