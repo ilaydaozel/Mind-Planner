@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import ProgramsTable from '../../components/table/ProgramsTable';
 import AddProgramForm from '@/app/components/forms/AddProgramForm';
-import Button from '@/app/components/buttons/Button';
+import Button from '@/app/components/formComponents/Button';
 
 const ProgramListPage = ({programs}:{programs: IProgram[]}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);

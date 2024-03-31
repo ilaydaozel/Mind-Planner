@@ -1,13 +1,14 @@
 "use client";
 
-import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
 import Modal from 'react-modal';
-import Button from '../buttons/Button';
+import Button from '../formComponents/Button';
 import { handleApiResponse } from '@/app/utils/Helper';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import InputField from '../formComponents/InputField';
 
-Modal.setAppElement('#root');
+Modal.setAppElement('#programsPage');
 
 interface AddProgramFormProps {
   isOpen: boolean;
@@ -56,58 +57,83 @@ const AddProgramForm = ({ isOpen, onClose }: AddProgramFormProps) => {
   };
 
   return (
-    <Modal isOpen={isOpen} onRequestClose={onClose}>
-      <h2 className='text-text1-800 text-md'>Add New Program</h2>
-      <form onSubmit={handleSubmit}>
-        <div className='flex flex-col gap-4'>
-            <label>
-            Name:
-            <input required type="text" name="name" value={formData.name} onChange={handleChange} />
-            </label>
-            <label>
-            University Name:
-            <input required type="text" name="universityName" value={formData.universityName} onChange={handleChange} />
-            </label>
-            <label>
-            University City:
-            <input required type="text" name="universityCity" value={formData.universityCity} onChange={handleChange} />
-            </label>
-            <label>
-            Program Link:
-            <input type="text" name="programLink" value={formData.programLink} onChange={handleChange} />
-            </label>
-            <label>
-            Course Content:
-            <textarea name="courseContent" value={formData.courseContent} onChange={handleChange} />
-            </label>
-            <label>
-            Requirements:
-            <textarea name="requirements" value={formData.requirements} onChange={handleChange} />
-            </label>
-            <label>
-            Language:
-            <input type="text" name="language" value={formData.language} onChange={handleChange} />
-            </label>
-            <label>
-            Application Deadline:
-            <input type="text" name="applicationDeadline" value={formData.applicationDeadline} onChange={handleChange} />
-            </label>
-            <label>
-            Application Documents:
-            <input type="text" name="applicationDocuments" value={formData.applicationDocuments} onChange={handleChange} />
-            </label>
-            <label>
-            Additional Notes:
-            <textarea name="additionalNotes" value={formData.additionalNotes} onChange={handleChange} />
-            </label>
-        </div>
-        
-        <div className='flex gap-4'>
+    <Modal isOpen={isOpen} onRequestClose={onClose} className="w-fit fixed overflow-y-auto overflow-x-auto top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white border border-solid border-gray-200 rounded-lg shadow-md p-6">
+      <div className='flex flex-col items-center p-4'>
+        <h2 className='text-lg font-bold mb-4'>Add New Program</h2>
+        <form onSubmit={handleSubmit} className="flex gap-6">
+          <div className='flex flex-col gap-4'>
+            <InputField 
+              label="Name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
+            <InputField 
+              label="University Name"
+              name="universityName"
+              value={formData.universityName}
+              onChange={handleChange}
+              required
+            />
+            <InputField 
+              label="University City"
+              name="universityCity"
+              value={formData.universityCity}
+              onChange={handleChange}
+              required
+            />
+            <InputField 
+              label="Program Link"
+              name="programLink"
+              value={formData.programLink}
+              onChange={handleChange}
+            />
+            <InputField 
+              label="Course Content"
+              name="courseContent"
+              value={formData.courseContent}
+              onChange={handleChange}
+            />
+          </div>
+          <div className='flex flex-col gap-4'>
+            <InputField 
+              label="Requirements"
+              name="requirements"
+              value={formData.requirements}
+              onChange={handleChange}
+            />
+            <InputField 
+              label="Language"
+              name="language"
+              value={formData.language}
+              onChange={handleChange}
+            />
+            <InputField 
+              label="Application Deadline"
+              name="applicationDeadline"
+              value={formData.applicationDeadline}
+              onChange={handleChange}
+            />
+            <InputField 
+              label="Application Documents"
+              name="applicationDocuments"
+              value={formData.applicationDocuments}
+              onChange={handleChange}
+            />
+            <InputField 
+              label="Additional Notes"
+              name="additionalNotes"
+              value={formData.additionalNotes}
+              onChange={handleChange}
+            />
+          </div>
+        </form>
+      </div>
+      <div className='flex gap-4 items-center justify-end'>
         <Button type="submit" label='Add Program'/>
         <Button type="button" onClick={onClose} label='Cancel'/>
-        </div>
-
-      </form>
+      </div>
     </Modal>
   );
 };
