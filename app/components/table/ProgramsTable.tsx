@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Th, Td, ProgramTableRow} from '@/app/components/table/TableElements';
-import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/16/solid";
+import { Th, ProgramTableRow} from '@/app/components/table/TableElements';
 
 const ProgramsTable = ({ programs }: {programs: IProgram[]}) => {
     const [showNotesForProgram, setShowNotesForProgram] = useState<string | null>(null);
@@ -10,22 +9,19 @@ const ProgramsTable = ({ programs }: {programs: IProgram[]}) => {
     };
 
   return (
-    <div className="overflow-x-auto">
-      <table className="min-w-full divide-y divide-gray-200">
-        <thead className="bg-gray-50">
-          <div className='flex'>
-            <Th>Name</Th>
-            <Th>University</Th>
-            <Th>City</Th>
-            <Th>Program Link</Th>
-            <Th>Course Content</Th>
-            <Th>Requirements</Th>
-            <Th>Language</Th>
-            <Th>Application Deadline</Th>
-            <Th>Application Documents</Th>
-          </div>
+      <table className="w-full divide-y divide-gray-200">
+        <thead className="flex bg-gray-50 ">
+        <Th className="w-1/18">Name</Th>
+        <Th className="w-1/18">University</Th>
+        <Th className="w-1/18">City</Th>
+        <Th className="w-2/18">Program Link</Th>
+        <Th className="w-2/18">Course Content</Th>
+        <Th className="w-3/18">Requirements</Th>
+        <Th className="w-1/18">Language</Th>
+        <Th className="w-2/18">Application Deadline</Th>
+        <Th className="w-4/18">Application Documents</Th>
         </thead>
-        <tbody className="bg-white divide-y divide-gray-200">
+        <tbody className="bg-white">
           {programs.map(program => (
              <ProgramTableRow 
              key={program.id} 
@@ -36,7 +32,6 @@ const ProgramsTable = ({ programs }: {programs: IProgram[]}) => {
           ))}
         </tbody>
       </table>
-    </div>
   );
 };
 
