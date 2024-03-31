@@ -12,7 +12,7 @@ const ProgramListPage = ({programs}:{programs: IProgram[]}) => {
   const closeModal = () => setIsModalOpen(false);
   
   return (
-    <div>
+    <div className='flex flex-col items-end gap-2 max-w-[90%]'>
       <Button onClick={openModal} label='Add Program'></Button>
       <AddProgramForm isOpen={isModalOpen} onClose={closeModal} />
       <ProgramsTable programs={programs} />

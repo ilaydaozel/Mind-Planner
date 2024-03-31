@@ -1,34 +1,75 @@
 import React, { useState } from 'react';
-import { Th, ProgramTableRow} from '@/app/components/table/TableElements';
+import EditableField from './EditableField';
+import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/16/solid";
+import { handleApiResponse } from '@/app/utils/Helper';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
+
 
 const ProgramsTable = ({ programs }: {programs: IProgram[]}) => {
     const [showNotesForProgram, setShowNotesForProgram] = useState<string | null>(null);
+    const router = useRouter();
 
     const toggleAdditionalNotes = (programId: string) => {
       setShowNotesForProgram(showNotesForProgram === programId ? null : programId);
     };
 
+    const handleEditField = async (id:string, fieldName: string, fieldValue: any) => {
+      try {
+        await handleApiResponse(
+          axios.put(
+            `/api/program/updateProgram`,
+            { id, fieldName, fieldValue }
+          ),
+          router,
+          "Update successful"
+        );
+        console.log('Field updated successfully');
+      } catch (error) {
+        console.error('Error updating field:', error);
+      }
+    };
+  
   return (
-      <table className="w-full divide-y divide-gray-200">
-        <thead className="flex bg-gray-50 ">
-        <Th className="w-1/18">Name</Th>
-        <Th className="w-1/18">University</Th>
-        <Th className="w-1/18">City</Th>
-        <Th className="w-2/18">Program Link</Th>
-        <Th className="w-2/18">Course Content</Th>
-        <Th className="w-3/18">Requirements</Th>
-        <Th className="w-1/18">Language</Th>
-        <Th className="w-2/18">Application Deadline</Th>
-        <Th className="w-4/18">Application Documents</Th>
+      <table className="w-full border-collapse">
+        <thead className="bg-gray-50">
+          <tr>
+            <th className="w-1/12 border border-text1-300">Name</th>
+            <th className="w-1/12 border border-text1-300">University</th>
+            <th className="w-1/12 border border-text1-300">City</th>
+            <th className="w-1/12 border border-text1-300">Program Link</th>
+            <th className="w-2/12 border border-text1-300">Course Content</th>
+            <th className="w-2/12 border border-text1-300">Requirements</th>
+            <th className="w-1/12 border border-text1-300">Language</th>
+            <th className="w-1/12 border border-text1-300">Deadline</th>
+            <th className="border border-text1-300">Application Documents</th>
+          </tr>
         </thead>
         <tbody className="bg-white">
           {programs.map(program => (
-             <ProgramTableRow 
-             key={program.id} 
-             program={program} 
-             showNotesForProgram={showNotesForProgram} 
-             toggleAdditionalNotes={toggleAdditionalNotes} 
-         />
+            <React.Fragment key={program.id}>
+              <tr className="border border-text1-300">
+                <EditableField initialValue={program.name} onSave={(newValue) => handleEditField(program.id || "", "name", newValue)} />
+                <EditableField initialValue={program.universityName} onSave={(newValue) => handleEditField(program.id || "", "universityName", newValue)} />
+                <EditableField initialValue={program.universityCity} onSave={(newValue) => handleEditField(program.id || "", "universityCity", newValue)} />
+                <EditableField initialValue={program.programLink} onSave={(newValue) => handleEditField(program.id || "", "programLink", newValue)} />
+                <EditableField initialValue={program.courseContent} onSave={(newValue) => handleEditField(program.id || "", "courseContent", newValue)} />
+                <EditableField initialValue={program.requirements} onSave={(newValue) => handleEditField(program.id || "", "requirements", newValue)} />
+                <EditableField initialValue={program.language} onSave={(newValue) => handleEditField(program.id || "", "language", newValue)} />
+                <EditableField initialValue={program.applicationDeadline} onSave={(newValue) => handleEditField(program.id || "", "applicationDeadline", newValue)} />
+                <EditableField initialValue={program.applicationDocuments} onSave={(newValue) => handleEditField(program.id || "", "applicationDocuments", newValue)} />
+                <td className="border border-text1-300 bg-primary-400 cursor-pointer" onClick={() => toggleAdditionalNotes(program.id || "")}>
+                  {showNotesForProgram === program.id ? <ChevronUpIcon className="h-4 w-4 text-white"/> : <ChevronDownIcon className="h-4 w-4 text-white" />}
+                </td>
+              </tr>
+
+              {showNotesForProgram === program.id && program.additionalNotes!=="" &&(
+                  <td colSpan={9} className="border border-text1-300">
+                    <EditableField initialValue={program.additionalNotes} onSave={(newValue) => handleEditField(program.id || "", "additionalNotes", newValue)} />
+                  </td>
+
+              )}
+            </React.Fragment>
           ))}
         </tbody>
       </table>

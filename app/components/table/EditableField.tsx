@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-const EditableField = ({ initialValue, onSave, className }: { initialValue: string | null, onSave: (newValue: string) => void, className?: string }) => {
+const EditableField = ({ initialValue, onSave}: { initialValue: string | null, onSave: (newValue: string) => void, className?: string }) => {
   const [editMode, setEditMode] = useState(false);
   const [editedValue, setEditedValue] = useState(initialValue || "");
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
 
 
   useEffect(() => {
@@ -30,21 +30,21 @@ const EditableField = ({ initialValue, onSave, className }: { initialValue: stri
 
 
   return (
-    <div className={`px-6 py-4 ${className}`} onClick={() => setEditMode(true)}>
+    <td className="text-left border border-text1-300 overflow-wrap break-all " onClick={() => setEditMode(true)}>
       {editMode ? (
-          <input
+          <textarea
             ref={inputRef}
-            type="text"
             value={editedValue}
             onChange={(e) => setEditedValue(e.target.value)}
-            className='shadow-md'
+            className='shadow-md w-full h-full focus:ring-0'
+            rows={5}
           />
       ) : (
         <div>
           {initialValue}
         </div>
       )}
-    </div>
+    </td>
   );
 };
 
