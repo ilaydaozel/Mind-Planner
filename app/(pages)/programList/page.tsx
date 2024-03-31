@@ -1,4 +1,4 @@
-import { fetchPrograms } from '@/app/api/program/fetchProgram/route';
+import { fetchPrograms } from '@/app/actions/getPrograms';
 import ProgramListPage from './ProgramListPage';
 
 const ProgramsPage = async () => {
