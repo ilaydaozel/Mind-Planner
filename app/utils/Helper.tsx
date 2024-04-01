@@ -24,6 +24,7 @@ export const handleApiResponse = async (
           onSuccess();
         }
         router.refresh();
+        console.log("page refreshed")
       }
     });
   } catch (error) {

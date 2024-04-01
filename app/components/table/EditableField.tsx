@@ -9,7 +9,8 @@ const EditableField = ({ initialValue, onSave}: { initialValue: string | null, o
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (inputRef.current && !inputRef.current.contains(event.target as Node)) {
-        if( editedValue !== initialValue){
+        if(editedValue !== initialValue){
+            console.log("on save condition editedValue !== initialValue", editedValue !== initialValue, editedValue, initialValue)
             onSave(editedValue);
         }
         setEditMode(false);
@@ -30,7 +31,7 @@ const EditableField = ({ initialValue, onSave}: { initialValue: string | null, o
 
 
   return (
-    <td className="text-left border border-text1-300 overflow-wrap break-all " onClick={() => setEditMode(true)}>
+    <td className="text-left border overflow-wrap break-all bg-white p-2" onClick={() => setEditMode(true)}>
       {editMode ? (
           <textarea
             ref={inputRef}
