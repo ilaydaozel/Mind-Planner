@@ -1,11 +1,11 @@
 import prisma from "@/app/lib/prismadb";
 
-export async function fetchPrograms(): Promise<IProgram[]> {
+export default async function getAllPrograms(): Promise<IProgram[]> {
   try {
     const programsData = await prisma.program.findMany();
     return programsData;
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching programs:', error);
-    return [];
+    throw new Error(error);
   }
 }
