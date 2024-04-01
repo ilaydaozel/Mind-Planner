@@ -10,7 +10,6 @@ const EditableField = ({ initialValue, onSave}: { initialValue: string | null, o
     const handleClickOutside = (event: MouseEvent) => {
       if (inputRef.current && !inputRef.current.contains(event.target as Node)) {
         if(editedValue !== initialValue){
-            console.log("on save condition editedValue !== initialValue", editedValue !== initialValue, editedValue, initialValue)
             onSave(editedValue);
         }
         setEditMode(false);
