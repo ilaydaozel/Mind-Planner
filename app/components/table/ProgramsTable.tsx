@@ -31,7 +31,7 @@ const ProgramsTable = ({ programs }: {programs: IProgram[]}) => {
     };
   
   return (
-      <table className="w-full border-collapse">
+      <table className="w-full border-collapse color-text1-700">
         <thead className="bg-gray-50">
           <tr>
             <th className="w-1/12 border border-text1-300">Name</th>
