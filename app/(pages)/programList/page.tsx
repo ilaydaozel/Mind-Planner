@@ -1,7 +1,12 @@
 import getAllPrograms from '@/app/actions/getPrograms';
 import ProgramListPage from './ProgramListPage';
+export const dynamic = 'force-dynamic';
+import { cookies } from 'next/headers'
 
 const ProgramsPage = async () => {
+  const cookieStore = cookies()
+  const theme = cookieStore.get('theme')
+  console.log("theme", theme)
   try{
     const programsData = await getAllPrograms();
     return (
