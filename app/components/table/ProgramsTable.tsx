@@ -69,7 +69,7 @@ const ProgramsTable = ({ programs }: {programs: IProgram[]}) => {
                 </div>
               </tr>
               {showNotesForProgram === program.id && program.additionalNotes!=="" &&(
-                  <td colSpan={9} className="border border-text1-300 p-4">
+                  <td colSpan={9} className="border border-text1-300 p-2 bg-primary-50">
                     <EditableField initialValue={program.additionalNotes} onSave={(newValue) => handleEditField(program.id || "", "additionalNotes", newValue)} />
                   </td>
 

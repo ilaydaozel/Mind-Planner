@@ -30,7 +30,7 @@ const EditableField = ({ initialValue, onSave}: { initialValue: string | null, o
 
 
   return (
-    <td className="text-left border overflow-wrap break-all bg-white p-2" onClick={() => setEditMode(true)}>
+    <td className="text-left border overflow-wrap break-all bg-white py-2 text-xs min-w-12" onClick={() => setEditMode(true)}>
       {editMode ? (
           <textarea
             ref={inputRef}
