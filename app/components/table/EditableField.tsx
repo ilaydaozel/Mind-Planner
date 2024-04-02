@@ -65,7 +65,7 @@ const EditableField = ({ initialValue, onSave, colSpan }: { initialValue: string
           />
         ) }
         <div className='min-w-16 min-h-8'>
-          {makeStringClickable(initialValue || "")}
+          {makeStringClickable(editedValue || "")}
         </div>
     </td>
   );
