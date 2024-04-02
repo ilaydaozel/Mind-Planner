@@ -1,9 +1,35 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-const EditableField = ({ initialValue, onSave}: { initialValue: string | null, onSave: (newValue: string) => void, className?: string }) => {
+const EditableField = ({ initialValue, onSave, colSpan }: { initialValue: string | null, onSave: (newValue: string) => void, colSpan?: number }) => {
   const [editMode, setEditMode] = useState(false);
   const [editedValue, setEditedValue] = useState(initialValue || "");
   const inputRef = useRef<HTMLTextAreaElement>(null);
+    
+  const makeStringClickable = (text: string): React.ReactNode[] => {
+    // Regular expression to match URLs
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+
+    // Split the text into parts (links, lists, and non-links)
+    const parts = text.split(urlRegex);
+
+    const result = parts.map((part, index) => {
+      if (part.match(urlRegex)) {
+        return (
+          <a key={index} href={part} target="_blank" rel="noopener noreferrer" style={{ color: 'blue' }}>{part}</a>
+        );
+      } else {
+        // Preserve newlines if there's a line break (\n)
+        const lines = part.split('\n').map((line, idx) => (
+          <React.Fragment key={idx}>
+            <ul>{line}</ul>
+          </React.Fragment>
+        ));
+        return <React.Fragment key={index}>{lines}</React.Fragment>;
+      }
+    });
+  
+    return result;
+  };
 
 
   useEffect(() => {
@@ -25,25 +51,22 @@ const EditableField = ({ initialValue, onSave}: { initialValue: string | null, o
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [editMode, editedValue, initialValue, onSave]);
-
+  }, [editMode, editedValue, initialValue, onSave, colSpan]);
 
 
   return (
-    <td className="text-left border overflow-wrap break-all bg-white py-2 text-xs min-w-12" onClick={() => setEditMode(true)}>
-      {editMode ? (
+    <td colSpan={colSpan} className= 'text-left border overflow-wrap break-all bg-white text-xs min-w-10 min-h-8 relative' onClick={() => setEditMode(true)}>
+        {editMode && (
           <textarea
             ref={inputRef}
             value={editedValue}
             onChange={(e) => setEditedValue(e.target.value)}
-            className='shadow-md w-full h-full focus:ring-0'
-            rows={5}
+            className='absolute resize-none inset-0 w-full h-full shadow-lg border border-text1-100 scale-102 z-10'
           />
-      ) : (
-        <div>
-          {initialValue}
+        ) }
+        <div className='min-w-16 min-h-8'>
+          {makeStringClickable(initialValue || "")}
         </div>
-      )}
     </td>
   );
 };

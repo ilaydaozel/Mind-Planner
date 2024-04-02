@@ -68,11 +68,8 @@ const ProgramsTable = ({ programs }: {programs: IProgram[]}) => {
                   {showNotesForProgram === program.id ? <ChevronUpIcon className="h-5 w-5 font-xl text-white m-auto"/> : <ChevronDownIcon className="h-5 w-5 font-xl text-white m-auto" />}
                 </div>
               </tr>
-              {showNotesForProgram === program.id && program.additionalNotes!=="" &&(
-                  <td colSpan={9} className="border border-text1-300 p-2 bg-primary-50">
-                    <EditableField initialValue={program.additionalNotes} onSave={(newValue) => handleEditField(program.id || "", "additionalNotes", newValue)} />
-                  </td>
-
+              {showNotesForProgram === program.id &&(
+                <EditableField colSpan={9} initialValue={program.additionalNotes} onSave={(newValue) => handleEditField(program.id || "", "additionalNotes", newValue)} /> 
               )}
             </React.Fragment>
           ))}
