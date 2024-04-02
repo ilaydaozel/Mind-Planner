@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 
 const Th = ({ text, width }: { text: string, width?: string }) => {
-  const classes = width ? `border border-text1-300 py-2 px-2 text-sm ${width}` : 'border border-text1-300 text-sm px-2 py-2'; // Use provided width or default width
+  const classes = width ? `text-left border border-text1-300 py-2 px-2 text-sm ${width}` : 'border border-text1-300 text-sm px-2 py-2'; // Use provided width or default width
   return (
     <th className={classes}>{text}</th>
   );
