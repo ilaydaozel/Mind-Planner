@@ -88,16 +88,12 @@ const ProgramsTable = ({ programs }: {programs: IProgram[]}) => {
                 <EditableField initialValue={program.language} onSave={(newValue) => handleEditField(program.id || "", "language", newValue)} />
                 <EditableField initialValue={program.applicationDeadline} onSave={(newValue) => handleEditField(program.id || "", "applicationDeadline", newValue)} />
                 <EditableField initialValue={program.applicationDocuments} onSave={(newValue) => handleEditField(program.id || "", "applicationDocuments", newValue)} />
-                <td className="border border-text1-300 bg-primary-400 cursor-pointer" onClick={() => toggleAdditionalNotes(program.id || "")}>
-                  {showNotesForProgram === program.id ? <ChevronUpIcon className="h-4 w-4 text-white"/> : <ChevronDownIcon className="h-4 w-4 text-white" />}
-                </td>
+                <div className="bg-primary-300 cursor-pointer rounded-sm" onClick={() => toggleAdditionalNotes(program.id || "")}>
+                  {showNotesForProgram === program.id ? <ChevronUpIcon className="h-5 w-5 font-xl text-white m-auto"/> : <ChevronDownIcon className="h-5 w-5 font-xl text-white m-auto" />}
+                </div>
               </tr>
-
-              {showNotesForProgram === program.id && program.additionalNotes!=="" &&(
-                  <td colSpan={9} className="border border-text1-300">
-                    <EditableField initialValue={program.additionalNotes} onSave={(newValue) => handleEditField(program.id || "", "additionalNotes", newValue)} />
-                  </td>
-
+              {showNotesForProgram === program.id &&(
+                <EditableField colSpan={9} initialValue={program.additionalNotes} onSave={(newValue) => handleEditField(program.id || "", "additionalNotes", newValue)} /> 
               )}
             </React.Fragment>
           ))}
