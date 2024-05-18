@@ -6,100 +6,80 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import IntegerEditableField from './IntegerEditableField';
 
+const ProgramsTable = ({ programs }: { programs: IProgram[] }) => {
+  const [showNotesForProgram, setShowNotesForProgram] = useState<string | null>(null);
+  const router = useRouter();
 
-const ProgramsTable = ({ programs }: {programs: IProgram[]}) => {
-    const [showNotesForProgram, setShowNotesForProgram] = useState<string | null>(null);
-    const [reorderedPrograms, setReorderedPrograms] = useState<IProgram[]>(programs);
-    const router = useRouter();
+  const toggleAdditionalNotes = (programId: string) => {
+    setShowNotesForProgram(showNotesForProgram === programId ? null : programId);
+  };
 
-    const toggleAdditionalNotes = (programId: string) => {
-      setShowNotesForProgram(showNotesForProgram === programId ? null : programId);
-    };
+  const handleEditField = async (id: string, fieldName: string, fieldValue: any) => {
+    try {
+      await handleApiResponse(
+        axios.put(
+          `/api/program/updateProgram`,
+          { id, fieldName, fieldValue }
+        ),
+        router,
+        "Update successful"
+      );
+      console.log('Field updated successfully');
+    } catch (error) {
+      console.error('Error updating field:', error);
+    }
+  };
 
-    const handleEditField = async (id:string, fieldName: string, fieldValue: any) => {
-      try {
-        await handleApiResponse(
-          axios.put(
-            `/api/program/updateProgram`,
-            { id, fieldName, fieldValue }
-          ),
-          router,
-          "Update successful"
-        );
-        console.log('Field updated successfully');
-      } catch (error) {
-        console.error('Error updating field:', error);
-      }
-    };
+  const sortedPrograms = [...programs].sort((a, b) => {
+    if (a.ranking === null && b.ranking === null) return 0;
+    if (a.ranking === null) return 1;
+    if (b.ranking === null) return -1;
+    return a.ranking - b.ranking;
+  });
 
-    const handleDragStart = (index: number) => {
-      // Set the dragged program index
-      sessionStorage.setItem('draggedProgramIndex', index.toString());
-    };
-  
-    const handleDragOver = (event: React.DragEvent<HTMLTableRowElement>) => {
-      event.preventDefault();
-    };
-  
-    const handleDrop = (index: number) => {
-      // Get the dragged program index from session storage
-      const draggedProgramIndex = Number(sessionStorage.getItem('draggedProgramIndex'));
-  
-      // Copy the programs array to prevent mutation
-      const updatedPrograms = [...reorderedPrograms];
-  
-      // Remove the dragged program from its original position
-      const [draggedProgram] = updatedPrograms.splice(draggedProgramIndex, 1);
-  
-      // Insert the dragged program at the drop position
-      updatedPrograms.splice(index, 0, draggedProgram);
-  
-      // Update the state with the reordered programs array
-      setReorderedPrograms(updatedPrograms);
-  
-      // Clear the dragged program index from session storage
-      sessionStorage.removeItem('draggedProgramIndex');
-    };
-  
   return (
-      <table className="w-full border-collapse">
-        <thead className="bg-gray-50">
-          <tr>
-            <th className="w-1/12 border border-text1-300">Name</th>
-            <th className="w-1/12 border border-text1-300">University</th>
-            <th className="w-1/12 border border-text1-300">Program Link</th>
-            <th className="w-2/12 border border-text1-300">Course Content</th>
-            <th className="w-3/12 border border-text1-300">Requirements</th>
-            <th className="w-1/12 border border-text1-300">Language</th>
-            <th className="w-1/12 border border-text1-300">Deadline</th>
-            <th className="w-1/12 border border-text1-300">Status</th>
-            <th className="w-1/12 border border-text1-300">Rank</th>
-          </tr>
-        </thead>
-        <tbody className="bg-white">
-        {reorderedPrograms.map((program, index) => (
-            <React.Fragment key={program.id}>
-               <tr className="border border-text1-300" draggable onDragStart={() => handleDragStart(index)} onDragOver={handleDragOver} onDrop={() => handleDrop(index)}>
-                <EditableField initialValue={program.name} onSave={(newValue) => handleEditField(program.id || "", "name", newValue)} />
-                <EditableField initialValue={program.universityName} onSave={(newValue) => handleEditField(program.id || "", "universityName", newValue)} />
-                <EditableField initialValue={program.programLink} onSave={(newValue) => handleEditField(program.id || "", "programLink", newValue)} />
-                <EditableField initialValue={program.courseContent} onSave={(newValue) => handleEditField(program.id || "", "courseContent", newValue)} />
-                <EditableField initialValue={program.requirements} onSave={(newValue) => handleEditField(program.id || "", "requirements", newValue)} />
-                <EditableField initialValue={program.language} onSave={(newValue) => handleEditField(program.id || "", "language", newValue)} />
-                <EditableField initialValue={program.applicationDeadline} onSave={(newValue) => handleEditField(program.id || "", "applicationDeadline", newValue)} />
-                <EditableField initialValue={program.status} onSave={(newValue) => handleEditField(program.id || "", "status", newValue)} />
-                <IntegerEditableField initialValue={program.ranking} onSave={(newValue) => handleEditField(program.id || "", "ranking", newValue)} />
-                <div className="bg-primary-300 cursor-pointer rounded-sm" onClick={() => toggleAdditionalNotes(program.id || "")}>
-                  {showNotesForProgram === program.id ? <ChevronUpIcon className="h-5 w-5 font-xl text-white m-auto"/> : <ChevronDownIcon className="h-5 w-5 font-xl text-white m-auto" />}
-                </div>
+    <table className="w-full border-collapse">
+      <thead className="bg-gray-50">
+        <tr>
+          <th className="w-1/12 border border-text1-300">Name</th>
+          <th className="w-1/12 border border-text1-300">University</th>
+          <th className="w-1/12 border border-text1-300">Program Link</th>
+          <th className="w-2/12 border border-text1-300">Course Content</th>
+          <th className="w-3/12 border border-text1-300">Requirements</th>
+          <th className="w-1/12 border border-text1-300">Language</th>
+          <th className="w-1/12 border border-text1-300">Deadline</th>
+          <th className="w-1/12 border border-text1-300">Status</th>
+          <th className="w-1/12 border border-text1-300">Rank</th>
+        </tr>
+      </thead>
+      <tbody className="bg-white">
+        {sortedPrograms.map((program) => (
+          <React.Fragment key={program.id}>
+            <tr className="border border-text1-300">
+              <EditableField initialValue={program.name} onSave={(newValue) => handleEditField(program.id || "", "name", newValue)} />
+              <EditableField initialValue={program.universityName} onSave={(newValue) => handleEditField(program.id || "", "universityName", newValue)} />
+              <EditableField initialValue={program.programLink} onSave={(newValue) => handleEditField(program.id || "", "programLink", newValue)} />
+              <EditableField initialValue={program.courseContent} onSave={(newValue) => handleEditField(program.id || "", "courseContent", newValue)} />
+              <EditableField initialValue={program.requirements} onSave={(newValue) => handleEditField(program.id || "", "requirements", newValue)} />
+              <EditableField initialValue={program.language} onSave={(newValue) => handleEditField(program.id || "", "language", newValue)} />
+              <EditableField initialValue={program.applicationDeadline} onSave={(newValue) => handleEditField(program.id || "", "applicationDeadline", newValue)} />
+              <EditableField initialValue={program.status} onSave={(newValue) => handleEditField(program.id || "", "applicationStatus", newValue)} />
+              <IntegerEditableField initialValue={program.ranking} onSave={(newValue) => handleEditField(program.id || "", "ranking", newValue)} />
+              <td className="bg-primary-300 cursor-pointer rounded-sm" onClick={() => toggleAdditionalNotes(program.id || "")}>
+                {showNotesForProgram === program.id ? <ChevronUpIcon className="h-5 w-5 font-xl text-white m-auto" /> : <ChevronDownIcon className="h-5 w-5 font-xl text-white m-auto" />}
+              </td>
+            </tr>
+            {showNotesForProgram === program.id && (
+              <tr>
+                <td colSpan={9}>
+                  <EditableField colSpan={9} initialValue={program.additionalNotes} onSave={(newValue) => handleEditField(program.id || "", "additionalNotes", newValue)} />
+                </td>
               </tr>
-              {showNotesForProgram === program.id &&(
-                <EditableField colSpan={9} initialValue={program.additionalNotes} onSave={(newValue) => handleEditField(program.id || "", "additionalNotes", newValue)} /> 
-              )}
-            </React.Fragment>
-          ))}
-        </tbody>
-      </table>
+            )}
+          </React.Fragment>
+        ))}
+      </tbody>
+    </table>
   );
 };
 
