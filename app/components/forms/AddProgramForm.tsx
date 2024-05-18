@@ -27,7 +27,7 @@ const AddProgramForm = ({ isOpen, onClose }: AddProgramFormProps) => {
     applicationDeadline: '',
     applicationDocuments: '',
     additionalNotes: '',
-    status: '',
+    applicationStatus: '',
     ranking: 0,
   });
   const router = useRouter();
@@ -125,7 +125,7 @@ const AddProgramForm = ({ isOpen, onClose }: AddProgramFormProps) => {
               <InputField 
                 label="Status"
                 name="status"
-                value={formData.status}
+                value={formData.applicationStatus}
                 onChange={handleChange}
               />
             </div>

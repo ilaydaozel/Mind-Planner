@@ -37,6 +37,19 @@ const ProgramsTable = ({ programs }: { programs: IProgram[] }) => {
     return a.ranking - b.ranking;
   });
 
+  const getStatusClassName = (status: string | null) => {
+    switch (status) {
+      case 'ToBeApplied':
+        return 'bg-yellow-50';
+      case 'NotToBeApplied':
+        return 'bg-gray-100';
+      case 'Applied':
+        return 'bg-green-100';
+      default:
+        return 'bg-white';
+    }
+  };
+
   return (
     <table className="w-full border-collapse">
       <thead className="bg-gray-50">
@@ -55,7 +68,7 @@ const ProgramsTable = ({ programs }: { programs: IProgram[] }) => {
       <tbody className="bg-white">
         {sortedPrograms.map((program) => (
           <React.Fragment key={program.id}>
-            <tr className="border border-text1-300">
+            <tr className={`border border-text1-300 ${getStatusClassName(program.applicationStatus)}`}>
               <EditableField initialValue={program.name} onSave={(newValue) => handleEditField(program.id || "", "name", newValue)} />
               <EditableField initialValue={program.universityName} onSave={(newValue) => handleEditField(program.id || "", "universityName", newValue)} />
               <EditableField initialValue={program.programLink} onSave={(newValue) => handleEditField(program.id || "", "programLink", newValue)} />
@@ -63,7 +76,7 @@ const ProgramsTable = ({ programs }: { programs: IProgram[] }) => {
               <EditableField initialValue={program.requirements} onSave={(newValue) => handleEditField(program.id || "", "requirements", newValue)} />
               <EditableField initialValue={program.language} onSave={(newValue) => handleEditField(program.id || "", "language", newValue)} />
               <EditableField initialValue={program.applicationDeadline} onSave={(newValue) => handleEditField(program.id || "", "applicationDeadline", newValue)} />
-              <EditableField initialValue={program.status} onSave={(newValue) => handleEditField(program.id || "", "applicationStatus", newValue)} />
+              <EditableField initialValue={program.applicationStatus} onSave={(newValue) => handleEditField(program.id || "", "applicationStatus", newValue)} />
               <IntegerEditableField initialValue={program.ranking} onSave={(newValue) => handleEditField(program.id || "", "ranking", newValue)} />
               <td className="bg-primary-300 cursor-pointer rounded-sm" onClick={() => toggleAdditionalNotes(program.id || "")}>
                 {showNotesForProgram === program.id ? <ChevronUpIcon className="h-5 w-5 font-xl text-white m-auto" /> : <ChevronDownIcon className="h-5 w-5 font-xl text-white m-auto" />}

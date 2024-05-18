@@ -10,7 +10,7 @@ interface IProgram {
   language: string | null;
   applicationDeadline: string | null;
   additionalNotes: string | null;
-  status: string | null;
+  applicationStatus: string | null;
 }
 
 interface INavLink {

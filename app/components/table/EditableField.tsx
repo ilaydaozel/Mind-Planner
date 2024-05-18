@@ -55,7 +55,7 @@ const EditableField = ({ initialValue, onSave, colSpan }: { initialValue: string
 
 
   return (
-    <td colSpan={colSpan} className= 'text-left p-2 border overflow-wrap break-all bg-white text-xs min-w-10 min-h-8 relative' onClick={() => setEditMode(true)}>
+    <td colSpan={colSpan} className= 'text-left p-2 border overflow-wrap break-all text-xs min-w-10 min-h-8 relative' onClick={() => setEditMode(true)}>
         {editMode && (
           <textarea
             ref={inputRef}

@@ -12,7 +12,7 @@ export async function POST(request: Request) {
         language,
         applicationDeadline,
         additionalNotes,
-        status,
+        applicationStatus,
         ranking,
     } = body;
     try{
@@ -26,7 +26,7 @@ export async function POST(request: Request) {
                 language,
                 applicationDeadline,
                 additionalNotes,
-                applicationStatus: status,
+                applicationStatus: applicationStatus,
                 ranking: ranking,
             }
         });
