@@ -17,13 +17,13 @@ datasource db {
 model Program {
   id                   String    @id @default(auto()) @map("_id") @db.ObjectId
   name                 String
-  universityName       String
-  universityCity       String
+  universityName       String?
   programLink          String?
   courseContent        String?
   requirements         String?
   language             String?
   applicationDeadline  String?
-  applicationDocuments String?
   additionalNotes      String?
+  applicationStatus    String?
+  ranking              Int?
 }

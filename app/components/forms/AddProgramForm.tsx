@@ -27,6 +27,8 @@ const AddProgramForm = ({ isOpen, onClose }: AddProgramFormProps) => {
     applicationDeadline: '',
     applicationDocuments: '',
     additionalNotes: '',
+    status: '',
+    ranking: 0,
   });
   const router = useRouter();
 
@@ -75,14 +77,6 @@ const AddProgramForm = ({ isOpen, onClose }: AddProgramFormProps) => {
                 name="universityName"
                 value={formData.universityName}
                 onChange={handleChange}
-                required
-              />
-              <InputField 
-                label="University City"
-                name="universityCity"
-                value={formData.universityCity}
-                onChange={handleChange}
-                required
               />
               <InputField 
                 label="Program Link"
@@ -94,6 +88,12 @@ const AddProgramForm = ({ isOpen, onClose }: AddProgramFormProps) => {
                 label="Course Content"
                 name="courseContent"
                 value={formData.courseContent}
+                onChange={handleChange}
+              />
+              <InputField 
+                label="Rank"
+                name="rank"
+                value={formData.ranking}
                 onChange={handleChange}
               />
             </div>
@@ -117,15 +117,15 @@ const AddProgramForm = ({ isOpen, onClose }: AddProgramFormProps) => {
                 onChange={handleChange}
               />
               <InputField 
-                label="Application Documents"
-                name="applicationDocuments"
-                value={formData.applicationDocuments}
-                onChange={handleChange}
-              />
-              <InputField 
                 label="Additional Notes"
                 name="additionalNotes"
                 value={formData.additionalNotes}
+                onChange={handleChange}
+              />
+              <InputField 
+                label="Status"
+                name="status"
+                value={formData.status}
                 onChange={handleChange}
               />
             </div>

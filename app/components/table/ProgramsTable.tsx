@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import EditableField from './EditableField';
-import { ChevronDownIcon, ChevronUpIcon, EllipsisHorizontalIcon } from "@heroicons/react/16/solid";
+import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/16/solid";
 import { handleApiResponse } from '@/app/utils/Helper';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import IntegerEditableField from './IntegerEditableField';
 
 
 const ProgramsTable = ({ programs }: {programs: IProgram[]}) => {
@@ -66,13 +67,13 @@ const ProgramsTable = ({ programs }: {programs: IProgram[]}) => {
           <tr>
             <th className="w-1/12 border border-text1-300">Name</th>
             <th className="w-1/12 border border-text1-300">University</th>
-            <th className="w-1/12 border border-text1-300">City</th>
             <th className="w-1/12 border border-text1-300">Program Link</th>
             <th className="w-2/12 border border-text1-300">Course Content</th>
-            <th className="w-2/12 border border-text1-300">Requirements</th>
+            <th className="w-3/12 border border-text1-300">Requirements</th>
             <th className="w-1/12 border border-text1-300">Language</th>
             <th className="w-1/12 border border-text1-300">Deadline</th>
-            <th className="border border-text1-300">Application Documents</th>
+            <th className="w-1/12 border border-text1-300">Status</th>
+            <th className="w-1/12 border border-text1-300">Rank</th>
           </tr>
         </thead>
         <tbody className="bg-white">
@@ -81,13 +82,13 @@ const ProgramsTable = ({ programs }: {programs: IProgram[]}) => {
                <tr className="border border-text1-300" draggable onDragStart={() => handleDragStart(index)} onDragOver={handleDragOver} onDrop={() => handleDrop(index)}>
                 <EditableField initialValue={program.name} onSave={(newValue) => handleEditField(program.id || "", "name", newValue)} />
                 <EditableField initialValue={program.universityName} onSave={(newValue) => handleEditField(program.id || "", "universityName", newValue)} />
-                <EditableField initialValue={program.universityCity} onSave={(newValue) => handleEditField(program.id || "", "universityCity", newValue)} />
                 <EditableField initialValue={program.programLink} onSave={(newValue) => handleEditField(program.id || "", "programLink", newValue)} />
                 <EditableField initialValue={program.courseContent} onSave={(newValue) => handleEditField(program.id || "", "courseContent", newValue)} />
                 <EditableField initialValue={program.requirements} onSave={(newValue) => handleEditField(program.id || "", "requirements", newValue)} />
                 <EditableField initialValue={program.language} onSave={(newValue) => handleEditField(program.id || "", "language", newValue)} />
                 <EditableField initialValue={program.applicationDeadline} onSave={(newValue) => handleEditField(program.id || "", "applicationDeadline", newValue)} />
-                <EditableField initialValue={program.applicationDocuments} onSave={(newValue) => handleEditField(program.id || "", "applicationDocuments", newValue)} />
+                <EditableField initialValue={program.status} onSave={(newValue) => handleEditField(program.id || "", "status", newValue)} />
+                <IntegerEditableField initialValue={program.ranking} onSave={(newValue) => handleEditField(program.id || "", "ranking", newValue)} />
                 <div className="bg-primary-300 cursor-pointer rounded-sm" onClick={() => toggleAdditionalNotes(program.id || "")}>
                   {showNotesForProgram === program.id ? <ChevronUpIcon className="h-5 w-5 font-xl text-white m-auto"/> : <ChevronDownIcon className="h-5 w-5 font-xl text-white m-auto" />}
                 </div>

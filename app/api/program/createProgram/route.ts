@@ -6,28 +6,28 @@ export async function POST(request: Request) {
     const {
         name,
         universityName,
-        universityCity,
         programLink,
         courseContent,
         requirements,
         language,
         applicationDeadline,
-        applicationDocuments,
         additionalNotes,
+        status,
+        ranking,
     } = body;
     try{
         const program = await prisma.program.create({
             data: {
                 name: name,
                 universityName: universityName,
-                universityCity: universityCity,
                 programLink : programLink,
                 courseContent,
                 requirements,
                 language,
                 applicationDeadline,
-                applicationDocuments,
                 additionalNotes,
+                applicationStatus: status,
+                ranking: ranking,
             }
         });
         return NextResponse.json(program);

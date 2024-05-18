@@ -1,16 +1,16 @@
 
 interface IProgram {
   id?: string;
+  ranking: number | null;
   name: string;
-  universityName: string;
-  universityCity: string;
+  universityName: string | null;
   programLink: string | null; 
   courseContent: string | null;
   requirements: string | null;
   language: string | null;
   applicationDeadline: string | null;
-  applicationDocuments: string | null;
   additionalNotes: string | null;
+  status: string | null;
 }
 
 interface INavLink {
