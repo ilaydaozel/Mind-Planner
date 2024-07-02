@@ -31,10 +31,9 @@ const ProgramsTable = ({ programs }: { programs: IProgram[] }) => {
   };
 
   const sortedPrograms = [...programs].sort((a, b) => {
-    if (a.ranking === null && b.ranking === null) return 0;
-    if (a.ranking === null) return 1;
-    if (b.ranking === null) return -1;
-    return a.ranking - b.ranking;
+    const rankA = a.ranking === null ? Infinity : a.ranking;
+    const rankB = b.ranking === null ? Infinity : b.ranking;
+    return rankA - rankB;
   });
 
   const getStatusClassName = (status: string | null) => {
@@ -45,6 +44,8 @@ const ProgramsTable = ({ programs }: { programs: IProgram[] }) => {
         return 'bg-gray-100';
       case 'Applied':
         return 'bg-green-100';
+      case 'Accepted':
+        return 'bg-green-200';
       default:
         return 'bg-white';
     }
