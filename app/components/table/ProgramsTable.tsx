@@ -43,9 +43,9 @@ const ProgramsTable = ({ programs }: { programs: IProgram[] }) => {
       case 'NotToBeApplied':
         return 'bg-gray-100';
       case 'Applied':
-        return 'bg-green-100';
+        return 'bg-blue-200';
       case 'Accepted':
-        return 'bg-green-200';
+        return 'bg-green-100';
       default:
         return 'bg-white';
     }
